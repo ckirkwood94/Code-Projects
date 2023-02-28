@@ -1,48 +1,44 @@
-let currentNum = 0;
+let numInput = 0;
 let result = 0;
 let lastOpPressed;
 
-let setCurrentNum = function (num = null) {
-  if (!currentNum) {
-    document.getElementById('new-number').innerHTML = result;
-  }
-  console.log('setCurrentNum: ', num);
-  if (num === !null) {
-    currentNum = parseInt(num);
-  }
-};
-
 let addNum = function (num) {
-  let result = num + currentNum;
-  setCurrentNum(result);
+  result = result + numInput;
   return result;
 };
 
 let subtractNum = function (num) {
-  let result = currentNum - num;
+  result = reuslt - numInput;
   return result;
 };
 
 let divideNum = function (num) {
-  let result = currentNum / num;
+  result = result / numInput;
   return result;
 };
 
 let multiplyNum = function (num) {
-  let result = currentNum * num;
+  result = result * numInput;
   return result;
+};
+
+let handleDisplay = function () {
+  if (numInput === 0) {
+    document.getElementById('num-view').innerHTML = result;
+  } else {
+    document.getElementById('num-view').innerHTML = numInput;
+  }
 };
 
 let executeOperation = function (func) {
   console.log('executeOperation');
   if (lastOpPressed) {
-    result = lastOpPressed(currentNum);
+    result = lastOpPressed(numInput);
   }
   lastOpPressed = func;
   console.log(result);
-  currentNum = 0;
-  setCurrentNum();
-  console.log(`executeOperation: ${currentNum}`);
+  numInput = 0;
+  handleDisplay();
 };
 
 let handleOpButton = function (button) {
@@ -51,17 +47,15 @@ let handleOpButton = function (button) {
   // executeOperation(currentNum, button.func);
 };
 
-let handleCurrentNum = function (num) {
-  if (currentNum === 0) {
-    currentNum = parseInt(num);
+let handleNumInput = function (num) {
+  if (numInput === 0) {
+    numInput = parseInt(num);
   } else {
-    let newNum = currentNum.toString() + num.toString();
+    let newNum = numInput.toString() + num.toString();
     newNum = parseInt(newNum);
-    currentNum = newNum;
-    // document.getElementById('new-number').innerHTML = currentNum;
+    numInput = newNum;
   }
-  // console.log(`handleCurrentNum: ${currentNum} ${typeof currentNum}`);
-  document.getElementById('new-number').innerHTML = currentNum;
+  handleDisplay();
   return;
 };
 
@@ -76,7 +70,7 @@ let createNumButtons = function (container) {
     //   }`
     // );
     newButton.addEventListener('click', function () {
-      handleCurrentNum(newButton.value);
+      handleNumInput(newButton.value);
     });
 
     newButton.appendChild(document.createTextNode(i));
@@ -91,9 +85,9 @@ let createFunctionButtons = function (container) {
     { button: 'multiply', text: '\u00D7', operation: multiplyNum },
     { button: 'divide', text: '\u00F7', operation: divideNum },
   ];
-  console.log('buttons length: ', buttons.length);
+  // console.log('buttons length: ', buttons.length);
   for (i = 0, j = buttons.length; i < j; i++) {
-    console.log(i, j);
+    // console.log(i, j);
     let newButton = document.createElement('button');
     newButton.setAttribute('type', 'button');
     newButton.appendChild(document.createTextNode(`${buttons[i].text}`));
@@ -114,8 +108,8 @@ let initCalculator = function () {
   calculator.setAttribute('id', 'calculator');
 
   let inputContainer = document.createElement('h3');
-  inputContainer.setAttribute('id', 'new-number');
-  inputContainer.appendChild(document.createTextNode(currentNum));
+  inputContainer.setAttribute('id', 'num-view');
+  inputContainer.appendChild(document.createTextNode(0));
   calculator.appendChild(inputContainer);
 
   createNumButtons(calculator);
