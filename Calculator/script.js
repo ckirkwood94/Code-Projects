@@ -1,8 +1,13 @@
 let currentNum = 0;
 let result = 0;
 
+let setCurrentNum = function (num) {
+  currentNum = parseInt(num);
+};
+
 let addNum = function (num) {
   let result = num + currentNum;
+  setCurrentNum(result);
   return result;
 };
 
@@ -58,8 +63,27 @@ let createNumButtons = function (container) {
   }
 };
 
+let createFunctionButtons = function (container) {
+  let buttons = [
+    { button: 'add', text: '\u002B', operation: addNum },
+    { button: 'subtract', text: '\u2212', operation: subtractNum },
+    { button: 'multiply', text: '\u00D7', operation: multiplyNum },
+    { button: 'divide', text: '\u00F7', operation: divideNum },
+  ];
+  console.log('buttons length: ', buttons.length);
+  for (i = 0, j = buttons.length; i < j; i++) {
+    console.log(i, j);
+    let newButton = document.createElement('button');
+    newButton.setAttribute('type', 'button');
+    newButton.appendChild(document.createTextNode(`${buttons[i].text}`));
+
+    container.appendChild(newButton);
+  }
+};
+
 let initCalculator = function () {
   let container = document.getElementById('container');
+
   let calculator = document.createElement('div');
   calculator.setAttribute('id', 'calculator');
 
@@ -69,6 +93,7 @@ let initCalculator = function () {
   calculator.appendChild(inputContainer);
 
   createNumButtons(calculator);
+  createFunctionButtons(calculator);
 
   container.appendChild(calculator);
 };
