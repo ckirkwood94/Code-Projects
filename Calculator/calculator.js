@@ -1,14 +1,15 @@
 let numInput = 0;
 let result = 0;
-let lastOpPressed;
 
 let addNum = function (num) {
   result = result + numInput;
   return result;
 };
 
+let lastOpPressed = addNum;
+
 let subtractNum = function (num) {
-  result = reuslt - numInput;
+  result = result - numInput;
   return result;
 };
 
