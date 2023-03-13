@@ -98,3 +98,43 @@ let WEAPONS = [
     damage: 100,
   },
 ];
+
+function addStat(label, container) {
+  let el = document.createElement('li');
+  let id = label.toLowerCase();
+  let value = '0';
+  el.innerHTML = `<label>${label}</label>: <span id="${id}" ${value}></span>`;
+  container.appendChild(el);
+  return container;
+}
+
+function createDOM() {
+  let container = document.getElementById('container');
+  let hud = document.createElement('ul');
+  hud.id = 'hud';
+
+  let labels = ['XP', 'Level', 'Health', 'Weapon', 'Damage', 'Enemies'];
+
+  for (let label of labels) {
+    hud = addStat(label, hud);
+  }
+
+  container.appendChild(hud);
+
+  let canvas = document.createElement('canvas');
+  canvas.id = 'grid';
+
+  canvas.height = ROWS * TILE_DIM;
+  canvas.width = COLS * TILE_DIM;
+
+  container.appendChild(canvas);
+}
+
+let game = null;
+let player = null;
+
+function init() {
+  createDOM();
+}
+
+init();
