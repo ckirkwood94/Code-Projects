@@ -1,0 +1,36 @@
+body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+}
+
+canvas {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+#container {
+  margin-top: 50px;
+  text-align: center;
+}
+* {
+  color: white;
+  background-color: black;
+}
+
+ul#hud {
+  padding-left: 0px;
+  list-style-type:  none;
+  display:  flex;
+  justify-content:  center;
+}
+ul#hud li {
+  margin-left:  5px;
+  margin-right:  5px;
+}
+label {
+  font-weight:  bold;
+}

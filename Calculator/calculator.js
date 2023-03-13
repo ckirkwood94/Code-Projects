@@ -23,6 +23,15 @@ let multiplyNum = function (num) {
   return result;
 };
 
+let clearOperation = function () {
+  if (numInput === 0) {
+    result = 0;
+  } else {
+    numInput = 0;
+  }
+  handleDisplay();
+};
+
 let handleDisplay = function () {
   if (numInput === 0) {
     document.getElementById('num-view').innerHTML = result;
@@ -32,11 +41,11 @@ let handleDisplay = function () {
 };
 
 let executeOperation = function (func) {
-  console.log('executeOperation');
+  console.log('executeOperation: ', func);
   if (lastOpPressed) {
     result = lastOpPressed(numInput);
   }
-  lastOpPressed = func;
+  lastOpPressed = func.operation;
   console.log(result);
   numInput = 0;
   handleDisplay();
@@ -85,6 +94,8 @@ let createFunctionButtons = function (container) {
     { button: 'subtract', text: '\u2212', operation: subtractNum },
     { button: 'multiply', text: '\u00D7', operation: multiplyNum },
     { button: 'divide', text: '\u00F7', operation: divideNum },
+    { button: 'equal', text: '\u003D', operation: null },
+    { button: 'clear', text: 'C', operation: clearOperation },
   ];
   // console.log('buttons length: ', buttons.length);
   for (i = 0, j = buttons.length; i < j; i++) {
@@ -92,10 +103,11 @@ let createFunctionButtons = function (container) {
     let newButton = document.createElement('button');
     newButton.setAttribute('type', 'button');
     newButton.appendChild(document.createTextNode(`${buttons[i].text}`));
-    newButton.operation = buttons[i].operation;
+    newButton.button = buttons[i];
+    // newButton.operation = buttons[i].operation;
     newButton.addEventListener('click', function (evt) {
-      console.log('Op Button: ', evt.currentTarget.operation);
-      executeOperation(evt.currentTarget.operation);
+      console.log('Op Button: ', evt.currentTarget.button);
+      executeOperation(evt.currentTarget.button);
     });
 
     container.appendChild(newButton);
